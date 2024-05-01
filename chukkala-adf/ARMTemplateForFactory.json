@@ -1,0 +1,320 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "chukkala-adf"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyPipeline_igl')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_igl",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "blobcontainer//History Report.xlsx"
+							},
+							{
+								"name": "Destination",
+								"value": "targetcontainer//target file"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"validateDataConsistency": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_igl",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_igl",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-05-01T18:17:45Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_igl')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_igl')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_igl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "target file",
+						"container": "targetcontainer"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_igl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "export",
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "History Report.xlsx",
+						"container": "blobcontainer"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "Transaction Date",
+						"type": "String"
+					},
+					{
+						"name": "Settled Date",
+						"type": "String"
+					},
+					{
+						"name": "Bet ID",
+						"type": "String"
+					},
+					{
+						"name": "Event Name",
+						"type": "String"
+					},
+					{
+						"name": "Bet Size",
+						"type": "String"
+					},
+					{
+						"name": "Short Bet ID",
+						"type": "String"
+					},
+					{
+						"name": "Game Type",
+						"type": "String"
+					},
+					{
+						"name": "Is Freebet",
+						"type": "String"
+					},
+					{
+						"name": "Status Type",
+						"type": "String"
+					},
+					{
+						"name": "Sport Name",
+						"type": "String"
+					},
+					{
+						"name": "Rejection Message",
+						"type": "String"
+					},
+					{
+						"name": "Bet Type",
+						"type": "String"
+					},
+					{
+						"name": "Account Age",
+						"type": "String"
+					},
+					{
+						"name": "Odds",
+						"type": "String"
+					},
+					{
+						"name": "Place Bet Type",
+						"type": "String"
+					},
+					{
+						"name": "Currency",
+						"type": "String"
+					},
+					{
+						"name": "Stake",
+						"type": "String"
+					},
+					{
+						"name": "Stake Tax",
+						"type": "String"
+					},
+					{
+						"name": "Stake After Tax",
+						"type": "String"
+					},
+					{
+						"name": "Stake Tax Amount",
+						"type": "String"
+					},
+					{
+						"name": "Payout",
+						"type": "String"
+					},
+					{
+						"name": "Total Payout",
+						"type": "String"
+					},
+					{
+						"name": "Total Payout After Tax",
+						"type": "String"
+					},
+					{
+						"name": "Total Payout With Bonus",
+						"type": "String"
+					},
+					{
+						"name": "Cashuse",
+						"type": "String"
+					},
+					{
+						"name": "Bonususe",
+						"type": "String"
+					},
+					{
+						"name": "Bonus Payout",
+						"type": "String"
+					},
+					{
+						"name": "Bouns Max Win Amount",
+						"type": "String"
+					},
+					{
+						"name": "Bouns Max Win Percentage",
+						"type": "String"
+					},
+					{
+						"name": "Parly Bonus",
+						"type": "String"
+					},
+					{
+						"name": "Parly Bonus Winnings",
+						"type": "String"
+					},
+					{
+						"name": "Potential Payout",
+						"type": "String"
+					},
+					{
+						"name": "GST Amount",
+						"type": "String"
+					},
+					{
+						"name": "GST Percentage",
+						"type": "String"
+					},
+					{
+						"name": "PF GST Amount",
+						"type": "String"
+					},
+					{
+						"name": "Platform Fee",
+						"type": "String"
+					},
+					{
+						"name": " Winnings Tax",
+						"type": "String"
+					},
+					{
+						"name": "Winnings Tax Amount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
