@@ -1,0 +1,9 @@
+{
+	"name": "chukkala-adf",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2da90984-46f5-498a-bb86-de8b76b219ca",
+		"tenantId": "197eaca1-f05c-4202-8a89-5c5d99e0e074"
+	}
+}

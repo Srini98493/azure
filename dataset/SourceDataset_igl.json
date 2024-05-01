@@ -1,0 +1,175 @@
+{
+	"name": "SourceDataset_igl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "export",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "History Report.xlsx",
+				"container": "blobcontainer"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Transaction Date",
+				"type": "String"
+			},
+			{
+				"name": "Settled Date",
+				"type": "String"
+			},
+			{
+				"name": "Bet ID",
+				"type": "String"
+			},
+			{
+				"name": "Event Name",
+				"type": "String"
+			},
+			{
+				"name": "Bet Size",
+				"type": "String"
+			},
+			{
+				"name": "Short Bet ID",
+				"type": "String"
+			},
+			{
+				"name": "Game Type",
+				"type": "String"
+			},
+			{
+				"name": "Is Freebet",
+				"type": "String"
+			},
+			{
+				"name": "Status Type",
+				"type": "String"
+			},
+			{
+				"name": "Sport Name",
+				"type": "String"
+			},
+			{
+				"name": "Rejection Message",
+				"type": "String"
+			},
+			{
+				"name": "Bet Type",
+				"type": "String"
+			},
+			{
+				"name": "Account Age",
+				"type": "String"
+			},
+			{
+				"name": "Odds",
+				"type": "String"
+			},
+			{
+				"name": "Place Bet Type",
+				"type": "String"
+			},
+			{
+				"name": "Currency",
+				"type": "String"
+			},
+			{
+				"name": "Stake",
+				"type": "String"
+			},
+			{
+				"name": "Stake Tax",
+				"type": "String"
+			},
+			{
+				"name": "Stake After Tax",
+				"type": "String"
+			},
+			{
+				"name": "Stake Tax Amount",
+				"type": "String"
+			},
+			{
+				"name": "Payout",
+				"type": "String"
+			},
+			{
+				"name": "Total Payout",
+				"type": "String"
+			},
+			{
+				"name": "Total Payout After Tax",
+				"type": "String"
+			},
+			{
+				"name": "Total Payout With Bonus",
+				"type": "String"
+			},
+			{
+				"name": "Cashuse",
+				"type": "String"
+			},
+			{
+				"name": "Bonususe",
+				"type": "String"
+			},
+			{
+				"name": "Bonus Payout",
+				"type": "String"
+			},
+			{
+				"name": "Bouns Max Win Amount",
+				"type": "String"
+			},
+			{
+				"name": "Bouns Max Win Percentage",
+				"type": "String"
+			},
+			{
+				"name": "Parly Bonus",
+				"type": "String"
+			},
+			{
+				"name": "Parly Bonus Winnings",
+				"type": "String"
+			},
+			{
+				"name": "Potential Payout",
+				"type": "String"
+			},
+			{
+				"name": "GST Amount",
+				"type": "String"
+			},
+			{
+				"name": "GST Percentage",
+				"type": "String"
+			},
+			{
+				"name": "PF GST Amount",
+				"type": "String"
+			},
+			{
+				"name": "Platform Fee",
+				"type": "String"
+			},
+			{
+				"name": " Winnings Tax",
+				"type": "String"
+			},
+			{
+				"name": "Winnings Tax Amount",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
